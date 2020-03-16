@@ -31,8 +31,16 @@ public class EmailService {
 	@Value("${email.address}")
 	private String attchEmailAddr;
 	
+	
+	public void setEmailAddress(String emailToSend)
+	{
+		this.attchEmailAddr += emailToSend;
+	}
+	
 
 	public void sendTextEmail(EmailTemplate emailTemplate) {
+		
+		this.setEmailAddress(emailTemplate.getSendTo());
 
 		SimpleMailMessage msg = new SimpleMailMessage();
 		try {
@@ -62,8 +70,9 @@ public class EmailService {
 
 	}
 
-	public void sendEmailWithAttachment(MultipartFile multipartFile) throws MessagingException, IOException {
-
+	public void sendEmailWithAttachment(MultipartFile multipartFile, String mail) throws MessagingException, IOException {
+		
+		this.setEmailAddress(mail);
 		MimeMessage msg = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 

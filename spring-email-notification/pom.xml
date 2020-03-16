@@ -13,9 +13,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-email-notification</name>
 	<description>Mon api de notification email en spring</description>
+	
+	
 
 	<properties>
 		<java.version>1.8</java.version>
+		<email.body>com.camaratek.email.notification.controller.TextEmailController</email.body>
 	</properties>
 
 	<dependencies>

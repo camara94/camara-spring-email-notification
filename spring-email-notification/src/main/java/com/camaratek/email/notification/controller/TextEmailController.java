@@ -1,5 +1,9 @@
 package com.camaratek.email.notification.controller;
 
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
 import org.apache.logging.log4j.Logger;
 
 /*
@@ -30,7 +34,8 @@ public class TextEmailController {
 	
 	@Autowired
 	private EmailService emailService;
-
+	
+	
 	@PostMapping(value="/textemail",consumes = "application/json", produces = "application/json")
 	public String sendEmail(@RequestBody EmailTemplate emailTemplate) {
 		try {
@@ -44,10 +49,10 @@ public class TextEmailController {
 	
 	
 	@PostMapping(value="/attachemail",consumes = "multipart/form-data")
-	public String sendEmailWithAttachment(@RequestPart(value = "file") MultipartFile file) {
+	public String sendEmailWithAttachment(@RequestPart(value = "file") MultipartFile file, @RequestPart(value = "mail") String mail) {
 		try {
 			//log.info("Envoyer un Fichier par Email....");
-			emailService.sendEmailWithAttachment(file);
+			emailService.sendEmailWithAttachment(file, mail);
 			return "L'email envoyé avec succès!";
 		} catch (Exception ex) {
 			return "Erreur d'envoie de mail: " + ex;
